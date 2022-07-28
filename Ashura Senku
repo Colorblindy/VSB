@@ -1,4 +1,3 @@
--- //<< VSB "h/" code
 if game:GetService("RunService"):IsClient() then error("Script must be server-side in order to work; use h/ and not hl/") end
 local Player,game,owner = owner,game
 local RealPlayer = Player
@@ -142,7 +141,6 @@ do
 	--Changing owner to fake player object to support owner:GetMouse()
 	game,owner = g,g.Players.LocalPlayer
 end
--- >>//
 
 -- // Ashura Senku, by Meatloaf
 print("Ashura Senku, by Meatloaf")
@@ -150,11 +148,10 @@ print("Ashura Senku, by Meatloaf")
 print("There are no animation cuz i suck at CFrame animating")
 
 local isCooldown = false
-local functions = nil
+local functions = {}
 
 -- // Functions
 coroutine.wrap(function()
-	functions = {}
 	function functions.Particle(effect, pos)
 		local part = Instance.new("Part", workspace.Debris)
 		part.Size = Vector3.new(1,1,1)
@@ -310,6 +307,7 @@ local char = Player.Character
 local root = char.HumanoidRootPart
 local mouse = Player:GetMouse()
 local hum = char.Humanoid
+
 local motors = {}
 motors.RightArm = char["Torso"]["Right Shoulder"]
 motors.LeftArm = char["Torso"]["Left Shoulder"]
@@ -327,8 +325,9 @@ originC0.Torso = root["RootJoint"].C0
 
 -- // On Press Event
 mouse.KeyDown:connect(function(k)
-	key = k:lower()
+	local key = k:lower()
 	if key == "e" then
+		print("E Pressed")
 		-- //<< Debounce
 		if isCooldown == true then
 			return
