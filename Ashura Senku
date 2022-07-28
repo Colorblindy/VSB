@@ -142,6 +142,15 @@ do
 	game,owner = g,g.Players.LocalPlayer
 end
 
+Player = owner
+PlayerGui = Player.PlayerGui
+Cam = workspace.CurrentCamera
+Backpack = Player.Backpack
+Character = Player.Character
+Humanoid = Character.Humanoid
+Mouse = Player:GetMouse()
+root = Humanoid.RootPart
+
 -- // Ashura Senku, by Meatloaf
 print("Ashura Senku, by Meatloaf")
 -- // There are no animation cuz i suck at CFrame animating
@@ -300,31 +309,23 @@ coroutine.wrap(function()
 end)()
 
 -- // Variable
-local Player = owner
-local gui = Player.PlayerGui
-local backpack = Player.Backpack
-local char = Player.Character
-local root = char.HumanoidRootPart
-local mouse = Player:GetMouse()
-local hum = char.Humanoid
-
 local motors = {}
-motors.RightArm = char["Torso"]["Right Shoulder"]
-motors.LeftArm = char["Torso"]["Left Shoulder"]
-motors.RightLeg = char["Torso"]["Right Hip"]
-motors.LeftLeg = char["Torso"]["Left Hip"]
-motors.Head = char["Torso"].Neck
+motors.RightArm = Character["Torso"]["Right Shoulder"]
+motors.LeftArm = Character["Torso"]["Left Shoulder"]
+motors.RightLeg = Character["Torso"]["Right Hip"]
+motors.LeftLeg = Character["Torso"]["Left Hip"]
+motors.Head = Character["Torso"].Neck
 motors.Torso = root["RootJoint"]
 local originC0 = {}
-originC0.RightArm = char["Torso"]["Right Shoulder"].C0
-originC0.LeftArm = char["Torso"]["Left Shoulder"].C0
-originC0.RightLeg = char["Torso"]["Right Hip"].C0
-originC0.LeftLeg = char["Torso"]["Left Hip"].C0
-originC0.Head = char["Torso"].Neck.C0
+originC0.RightArm = Character["Torso"]["Right Shoulder"].C0
+originC0.LeftArm = Character["Torso"]["Left Shoulder"].C0
+originC0.RightLeg = Character["Torso"]["Right Hip"].C0
+originC0.LeftLeg = Character["Torso"]["Left Hip"].C0
+originC0.Head = Character["Torso"].Neck.C0
 originC0.Torso = root["RootJoint"].C0
 
 -- // On Press Event
-mouse.KeyDown:connect(function(k)
+Mouse.KeyDown:connect(function(k)
 	local key = k:lower()
 	if key == "e" then
 		print("E Pressed")
@@ -396,7 +397,7 @@ mouse.KeyDown:connect(function(k)
 				model.Parent = workspace
 				
 				-- // FakeParts
-				for i, v in ipairs(char:GetDescendants()) do
+				for i, v in ipairs(Character:GetDescendants()) do
 					if v:IsA("BasePart") then
 						-- // Variable
 						local fakePart = v:Clone()
@@ -463,7 +464,7 @@ mouse.KeyDown:connect(function(k)
 		coroutine.wrap(function()
 			-- // Particle Emitter effect
 			-- // "Serializer Output" Plugin
-			for i, v in pairs(char:GetChildren()) do
+			for i, v in pairs(Character:GetChildren()) do
 				if v:IsA("BasePart") and v ~= root then
 					-- // Make Particles
 					local DashEffect = Instance.new("ParticleEmitter")
@@ -503,16 +504,16 @@ mouse.KeyDown:connect(function(k)
 		dash.Parent = root
 		
 		-- // Invincible
-		oldHealth = hum.Health
-		oldMaxHealth = hum.MaxHealth
-		hum.MaxHealth = math.huge
-		hum.Health = hum.MaxHealth
+		oldHealth = Humanoid.Health
+		oldMaxHealth = Humanoid.MaxHealth
+		Humanoid.MaxHealth = math.huge
+		Humanoid.Health = Humanoid.MaxHealth
 		
 		-- // End
 		Sound.Ended:Wait()
 		useEnd = true -- Stop working effects
-		hum.MaxHealth = oldMaxHealth
-		hum.Health = oldHealth
+		Humanoid.MaxHealth = oldMaxHealth
+		Humanoid.Health = oldHealth
 		
 		task.delay(2.5, function()
 			isCooldown = false
