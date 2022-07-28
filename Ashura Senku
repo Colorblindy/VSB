@@ -145,6 +145,8 @@ end
 -- >>//
 
 -- // Ashura Senku, by Meatloaf
+print("Ashura Senku, by Meatloaf")
+print("There are no animation cuz i suck at CFrame animating")
 -- // There are no animation cuz i suck at CFrame animating
 
 local isCooldown = false
