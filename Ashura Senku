@@ -146,8 +146,8 @@ end
 
 -- // Ashura Senku, by Meatloaf
 print("Ashura Senku, by Meatloaf")
-print("There are no animation cuz i suck at CFrame animating")
 -- // There are no animation cuz i suck at CFrame animating
+print("There are no animation cuz i suck at CFrame animating")
 
 local isCooldown = false
 local functions = nil
@@ -303,12 +303,12 @@ coroutine.wrap(function()
 end)()
 
 -- // Variable
-local plr = owner
-local gui = plr.PlayerGui
-local backpack = plr.Backpack
-local char = plr.Character
+local Player = owner
+local gui = Player.PlayerGui
+local backpack = Player.Backpack
+local char = Player.Character
 local root = char.HumanoidRootPart
-local mouse = plr:GetMouse()
+local mouse = Player:GetMouse()
 local hum = char.Humanoid
 local motors = {}
 motors.RightArm = char["Torso"]["Right Shoulder"]
