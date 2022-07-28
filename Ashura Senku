@@ -301,7 +301,7 @@ coroutine.wrap(function()
 end)()
 
 -- // Variable
-local plr = Player
+local plr = owner
 local gui = plr.PlayerGui
 local backpack = plr.Backpack
 local char = plr.Character
@@ -324,8 +324,8 @@ originC0.Head = char["Torso"].Neck.C0
 originC0.Torso = root["RootJoint"].C0
 
 -- // On Press Event
-mouse.KeyDown:connect(function(key)
-	key = key:lower()
+mouse.KeyDown:connect(function(k)
+	key = k:lower()
 	if key == "e" then
 		-- //<< Debounce
 		if isCooldown == true then
