@@ -246,6 +246,19 @@ coroutine.wrap(function()
 	end
 end)()
 
+-- // Debug
+Player.Chatted:connect(function(msg)
+	if msg:sub(1, 3) == "/e " then
+		msg = msg:sub(4)
+	end
+	if msg == "/fixcd" then
+		if isCooldown == true then
+			isCooldown = false
+			print("Cooldown fixed")
+		end
+	end
+end)
+
 -- // On Press Event
 Mouse.KeyDown:connect(function(k)
 	local key = k:lower()
@@ -424,6 +437,6 @@ Mouse.KeyDown:connect(function(k)
 
 		task.delay(2.5, function()
 			isCooldown = false
-		end)
+		end)	
 	end
 end)
