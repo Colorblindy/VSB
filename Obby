@@ -1,0 +1,596 @@
+-- Bored
+if game:GetService("RunService"):IsClient() then error("Script must be server-side in order to work; use h/ and not hl/") end
+local Player,Mouse,mouse,UserInputService,ContextActionService = owner
+do
+	print("FE Compatibility code by Mokiros | Translated to FE by iPxter")
+	script.Parent = Player.Character
+
+	--RemoteEvent for communicating
+	local Event = Instance.new("RemoteEvent")
+	Event.Name = "UserInput_Event"
+
+	--Fake event to make stuff like Mouse.KeyDown work
+	local function fakeEvent()
+		local t = {_fakeEvent=true,Connect=function(self,f)self.Function=f end}
+		t.connect = t.Connect
+		return t
+	end
+
+	--Creating fake input objects with fake variables
+	local m = {Target=nil,Hit=CFrame.new(),KeyUp=fakeEvent(),KeyDown=fakeEvent(),Button1Up=fakeEvent(),Button1Down=fakeEvent()}
+	local UIS = {InputBegan=fakeEvent(),InputEnded=fakeEvent()}
+	local CAS = {Actions={},BindAction=function(self,name,fun,touch,...)
+		CAS.Actions[name] = fun and {Name=name,Function=fun,Keys={...}} or nil
+	end}
+	--Merged 2 functions into one by checking amount of arguments
+	CAS.UnbindAction = CAS.BindAction
+
+	--This function will trigger the events that have been :Connect()'ed
+	local function te(self,ev,...)
+		local t = m[ev]
+		if t and t._fakeEvent and t.Function then
+			t.Function(...)
+		end
+	end
+	m.TrigEvent = te
+	UIS.TrigEvent = te
+
+	Event.OnServerEvent:Connect(function(plr,io)
+		if plr~=Player then return end
+		if io.isMouse then
+			m.Target = io.Target
+			m.Hit = io.Hit
+		else
+			local b = io.UserInputState == Enum.UserInputState.Begin
+			if io.UserInputType == Enum.UserInputType.MouseButton1 then
+				return m:TrigEvent(b and "Button1Down" or "Button1Up")
+			end
+			for _,t in pairs(CAS.Actions) do
+				for _,k in pairs(t.Keys) do
+					if k==io.KeyCode then
+						t.Function(t.Name,io.UserInputState,io)
+					end
+				end
+			end
+			m:TrigEvent(b and "KeyDown" or "KeyUp",io.KeyCode.Name:lower())
+			UIS:TrigEvent(b and "InputBegan" or "InputEnded",io,false)
+		end
+	end)
+	Event.Parent = NLS([==[
+	local Player = game:GetService("Players").LocalPlayer
+	local Event = script:WaitForChild("UserInput_Event")
+
+	local UIS = game:GetService("UserInputService")
+	local input = function(io,a)
+		if a then return end
+		--Since InputObject is a client-side instance, we create and pass table instead
+		Event:FireServer({KeyCode=io.KeyCode,UserInputType=io.UserInputType,UserInputState=io.UserInputState})
+	end
+	UIS.InputBegan:Connect(input)
+	UIS.InputEnded:Connect(input)
+
+	local Mouse = Player:GetMouse()
+	local h,t
+	--Give the server mouse data 30 times every second, but only if the values changed
+	--If player is not moving their mouse, client won't fire events
+	while wait(1/30) do
+		if h~=Mouse.Hit or t~=Mouse.Target then
+			h,t=Mouse.Hit,Mouse.Target
+			Event:FireServer({isMouse=true,Target=t,Hit=h})
+		end
+	end]==], Player.Character)
+	Mouse,mouse,UserInputService,ContextActionService = m,m,UIS,CAS
+end
+
+Player = owner
+PlayerGui = Player.PlayerGui
+Cam = workspace.CurrentCamera
+Backpack = Player.Backpack
+Character = Player.Character
+Humanoid = Character.Humanoid
+root = Humanoid.RootPart
+
+local Obby = Instance.new("Model")
+Obby.Name = "Obby"
+Obby.WorldPivot = CFrame.new(-1.3525539636611938, 11.5, -27.813430786132812)
+
+local Part = Instance.new("Part")
+Part.Anchored = true
+Part.BottomSurface = Enum.SurfaceType.Smooth
+Part.TopSurface = Enum.SurfaceType.Smooth
+Part.Material = Enum.Material.Slate
+Part.Size = Vector3.new(5.929999828338623, 6.1078996658325195, 5.801451683044434)
+Part.CFrame = CFrame.new(-1.3525539636611938, 2.79486083984375, -7.5312957763671875)
+Part.Parent = Obby
+
+local Part1 = Instance.new("Part")
+Part1.Anchored = true
+Part1.BottomSurface = Enum.SurfaceType.Smooth
+Part1.TopSurface = Enum.SurfaceType.Smooth
+Part1.Material = Enum.Material.Slate
+Part1.Size = Vector3.new(5.929999828338623, 6.57138204574585, 5.432467460632324)
+Part1.CFrame = CFrame.new(-1.3525539636611938, 5.560354232788086, -10.21847152709961)
+Part1.Parent = Obby
+
+local Part2 = Instance.new("Part")
+Part2.Anchored = true
+Part2.BottomSurface = Enum.SurfaceType.Smooth
+Part2.TopSurface = Enum.SurfaceType.Smooth
+Part2.Material = Enum.Material.Slate
+Part2.Size = Vector3.new(5.929999828338623, 6.1078996658325195, 5.801451683044434)
+Part2.CFrame = CFrame.new(-1.3525539636611938, 8.73450756072998, -12.926383972167969)
+Part2.Parent = Obby
+
+local Part3 = Instance.new("Part")
+Part3.Anchored = true
+Part3.BottomSurface = Enum.SurfaceType.Smooth
+Part3.TopSurface = Enum.SurfaceType.Smooth
+Part3.Material = Enum.Material.Slate
+Part3.Size = Vector3.new(5.929999828338623, 6.57138204574585, 5.432467460632324)
+Part3.CFrame = CFrame.new(-1.3525539636611938, 11.5, -15.61355972290039)
+Part3.Parent = Obby
+
+local Part4 = Instance.new("Part")
+Part4.Anchored = true
+Part4.BottomSurface = Enum.SurfaceType.Smooth
+Part4.TopSurface = Enum.SurfaceType.Smooth
+Part4.Material = Enum.Material.Slate
+Part4.Size = Vector3.new(5.929999828338623, 6.57138204574585, 5.432467460632324)
+Part4.CFrame = CFrame.new(-1.3525539636611938, 11.5, -40.32904052734375)
+Part4.Parent = Obby
+
+local Middle = Instance.new("Part")
+Middle.Name = "Middle"
+Middle.Anchored = true
+Middle.BottomSurface = Enum.SurfaceType.Smooth
+Middle.TopSurface = Enum.SurfaceType.Smooth
+Middle.Material = Enum.Material.Slate
+Middle.Size = Vector3.new(5.929999828338623, 6.57138204574585, 5.432467460632324)
+Middle.CFrame = CFrame.new(-1.3525539636611938, 11.5, -27.813430786132812)
+Middle.Parent = Obby
+
+local Truss = Instance.new("TrussPart")
+Truss.Anchored = true
+Truss.BottomSurface = Enum.SurfaceType.Smooth
+Truss.TopSurface = Enum.SurfaceType.Smooth
+Truss.RightSurface = Enum.SurfaceType.Smooth
+Truss.Material = Enum.Material.Slate
+Truss.Size = Vector3.new(2, 2, 24.707073211669922)
+Truss.BackSurface = Enum.SurfaceType.Smooth
+Truss.CFrame = CFrame.new(-1.4247089624404907, 13.415929794311523, -29.35094451904297)
+Truss.LeftSurface = Enum.SurfaceType.Smooth
+Truss.FrontSurface = Enum.SurfaceType.Smooth
+Truss.Parent = Obby
+
+local Truss1 = Instance.new("TrussPart")
+Truss1.Anchored = true
+Truss1.BottomSurface = Enum.SurfaceType.Smooth
+Truss1.TopSurface = Enum.SurfaceType.Smooth
+Truss1.RightSurface = Enum.SurfaceType.Smooth
+Truss1.Material = Enum.Material.Slate
+Truss1.Size = Vector3.new(2, 18.95775032043457, 2)
+Truss1.BackSurface = Enum.SurfaceType.Smooth
+Truss1.CFrame = CFrame.new(-1.4247089624404907, 21.894805908203125, -41.287025451660156)
+Truss1.LeftSurface = Enum.SurfaceType.Smooth
+Truss1.FrontSurface = Enum.SurfaceType.Smooth
+Truss1.Parent = Obby
+
+local Part5 = Instance.new("Part")
+Part5.Anchored = true
+Part5.BottomSurface = Enum.SurfaceType.Smooth
+Part5.TopSurface = Enum.SurfaceType.Smooth
+Part5.Material = Enum.Material.Slate
+Part5.Size = Vector3.new(5.929999828338623, 6.57138204574585, 5.432467460632324)
+Part5.CFrame = CFrame.new(-1.3525539636611938, 28.905559539794922, -48.64680480957031)
+Part5.Parent = Obby
+
+local Kill = Instance.new("Part")
+Kill.Name = "Kill"
+Kill.Anchored = true
+Kill.BottomSurface = Enum.SurfaceType.Smooth
+Kill.TopSurface = Enum.SurfaceType.Smooth
+Kill.Color = Color3.fromRGB(255, 0, 0)
+Kill.Material = Enum.Material.Neon
+Kill.Size = Vector3.new(5.925201892852783, 7.219319820404053, 1.2020292282104492)
+Kill.CFrame = CFrame.new(-1.3525539636611938, 18.134374618530273, -27.813430786132812)
+Kill.Parent = Obby
+
+local Win = Instance.new("Part")
+Win.Name = "Win"
+Win.Anchored = true
+Win.BottomSurface = Enum.SurfaceType.Smooth
+Win.TopSurface = Enum.SurfaceType.Smooth
+Win.Color = Color3.fromRGB(239, 184, 56)
+Win.Material = Enum.Material.Neon
+Win.Size = Vector3.new(5.09917688369751, 0.9233717918395996, 2.1920652389526367)
+Win.CFrame = CFrame.new(-1.3525539636611938, 31.845069885253906, -49.802406311035156)
+Win.Parent = Obby
+
+Obby.PrimaryPart = Middle
+Kill.Touched:Connect(function(hit)
+	if hit.Parent == Character then
+		return
+	end
+	if hit.Parent:FindFirstChildOfClass("Humanoid") then
+		if hit.Parent:GetAttribute("Deb_Killbrick") == true then
+			return
+		end
+		hit.Parent:SetAttribute("Deb_Killbrick", true)
+		
+		hit.Parent:FindFirstChildOfClass("Humanoid"):TakeDamage(10)
+		
+		task.wait(0.5)
+		hit.Parent:SetAttribute("Deb_Killbrick", nil)
+	end
+end)
+Win.Touched:Connect(function(hit)
+	if hit.Parent == Character then
+		return
+	end
+	if hit.Parent:FindFirstChildOfClass("Humanoid") then
+		if hit.Parent:GetAttribute("Deb_Winbrick") == true then
+			return
+		end
+		hit.Parent:SetAttribute("Deb_Winbrick", true)
+
+		coroutine.wrap(function()
+			local ParticleEmitter = Instance.new("ParticleEmitter")
+			ParticleEmitter.Lifetime = NumberRange.new(1, 2)
+			ParticleEmitter.SpreadAngle = Vector2.new(360, 360)
+			ParticleEmitter.LockedToPart = true
+			ParticleEmitter.Color = ColorSequence.new(Color3.fromRGB(255, 0, 0))
+			ParticleEmitter.VelocitySpread = 360
+			ParticleEmitter.Speed = NumberRange.new(10, 10)
+			ParticleEmitter.Size = NumberSequence.new(0.1)
+			ParticleEmitter.Acceleration = Vector3.new(0, -10, 0)
+			ParticleEmitter.RotSpeed = NumberRange.new(260, 260)
+			ParticleEmitter.Rate = 99
+			ParticleEmitter.Texture = "http://www.roblox.com/asset/?id=241685484"
+			ParticleEmitter.Parent = Win
+
+			local ParticleEmitter1 = Instance.new("ParticleEmitter")
+			ParticleEmitter1.Lifetime = NumberRange.new(1, 2)
+			ParticleEmitter1.SpreadAngle = Vector2.new(360, 360)
+			ParticleEmitter1.LockedToPart = true
+			ParticleEmitter1.Color = ColorSequence.new(Color3.fromRGB(230, 255, 0), Color3.fromRGB(255, 238, 0))
+			ParticleEmitter1.VelocitySpread = 360
+			ParticleEmitter1.Speed = NumberRange.new(10, 10)
+			ParticleEmitter1.Size = NumberSequence.new(0.1)
+			ParticleEmitter1.Acceleration = Vector3.new(0, -10, 0)
+			ParticleEmitter1.RotSpeed = NumberRange.new(260, 260)
+			ParticleEmitter1.Rate = 99
+			ParticleEmitter1.Texture = "http://www.roblox.com/asset/?id=241685484"
+			ParticleEmitter1.Parent = Win
+
+			local ParticleEmitter2 = Instance.new("ParticleEmitter")
+			ParticleEmitter2.Lifetime = NumberRange.new(1, 2)
+			ParticleEmitter2.SpreadAngle = Vector2.new(360, 360)
+			ParticleEmitter2.LockedToPart = true
+			ParticleEmitter2.Color = ColorSequence.new(Color3.fromRGB(46, 255, 0))
+			ParticleEmitter2.VelocitySpread = 360
+			ParticleEmitter2.Speed = NumberRange.new(10, 10)
+			ParticleEmitter2.Size = NumberSequence.new(0.1)
+			ParticleEmitter2.Acceleration = Vector3.new(0, -10, 0)
+			ParticleEmitter2.RotSpeed = NumberRange.new(260, 260)
+			ParticleEmitter2.Rate = 99
+			ParticleEmitter2.Texture = "http://www.roblox.com/asset/?id=241685484"
+			ParticleEmitter2.Parent = Win
+
+			local ParticleEmitter3 = Instance.new("ParticleEmitter")
+			ParticleEmitter3.Lifetime = NumberRange.new(1, 2)
+			ParticleEmitter3.SpreadAngle = Vector2.new(360, 360)
+			ParticleEmitter3.LockedToPart = true
+			ParticleEmitter3.Color = ColorSequence.new(Color3.fromRGB(0, 25, 255), Color3.fromRGB(0, 0, 255))
+			ParticleEmitter3.VelocitySpread = 360
+			ParticleEmitter3.Speed = NumberRange.new(10, 10)
+			ParticleEmitter3.Size = NumberSequence.new(0.1)
+			ParticleEmitter3.Acceleration = Vector3.new(0, -10, 0)
+			ParticleEmitter3.RotSpeed = NumberRange.new(260, 260)
+			ParticleEmitter3.Rate = 99
+			ParticleEmitter3.Texture = "http://www.roblox.com/asset/?id=241685484"
+			ParticleEmitter3.Parent = Win
+
+			local ParticleEmitter4 = Instance.new("ParticleEmitter")
+			ParticleEmitter4.Lifetime = NumberRange.new(1, 2)
+			ParticleEmitter4.SpreadAngle = Vector2.new(360, 360)
+			ParticleEmitter4.LockedToPart = true
+			ParticleEmitter4.Color = ColorSequence.new(Color3.fromRGB(0, 255, 226))
+			ParticleEmitter4.VelocitySpread = 360
+			ParticleEmitter4.Speed = NumberRange.new(10, 10)
+			ParticleEmitter4.Size = NumberSequence.new(0.1)
+			ParticleEmitter4.Acceleration = Vector3.new(0, -10, 0)
+			ParticleEmitter4.RotSpeed = NumberRange.new(260, 260)
+			ParticleEmitter4.Rate = 99
+			ParticleEmitter4.Texture = "http://www.roblox.com/asset/?id=241685484"
+			ParticleEmitter4.Parent = Win
+			
+			task.delay(2, function()
+				ParticleEmitter.Enabled = false
+				ParticleEmitter1.Enabled = false
+				ParticleEmitter2.Enabled = false
+				ParticleEmitter3.Enabled = false
+				ParticleEmitter4.Enabled = false
+			end)
+			task.delay(3, function()
+				ParticleEmitter:Destroy()
+				ParticleEmitter1:Destroy()
+				ParticleEmitter2:Destroy()
+				ParticleEmitter3:Destroy()
+				ParticleEmitter4:Destroy()
+			end)
+		end)()
+		
+		coroutine.wrap(function()
+			local ClassicSword = Instance.new("Tool")
+			ClassicSword.Name = "ClassicSword"
+			ClassicSword.TextureId = "rbxasset://Textures/Sword128.png"
+			ClassicSword.GripPos = Vector3.new(0, 0, -1.5)
+			ClassicSword.Grip = CFrame.new(0, 0, -1.5, 0, 0, 1, 1, 0, 0, 0, 1, 0)
+			ClassicSword.GripForward = Vector3.new(-1, -0, -0)
+			ClassicSword.GripUp = Vector3.new(0, 0, 1)
+			ClassicSword.GripRight = Vector3.new(0, 1, 0)
+
+			local Handle = Instance.new("Part")
+			Handle.Name = "Handle"
+			Handle.BottomSurface = Enum.SurfaceType.Smooth
+			Handle.TopSurface = Enum.SurfaceType.Smooth
+			Handle.Color = Color3.fromRGB(99, 95, 98)
+			Handle.Reflectance = 0.4
+			Handle.Size = Vector3.new(1, 0.800000011920929, 4)
+			Handle.Locked = true
+			Handle.CFrame = CFrame.new(-3.173830986022949, 1.5700010061264038, 3.0399630069732666, 0.09104403853416443, -0.8810994625091553, 0.46408435702323914, 0.5370116829872131, 0.43589484691619873, 0.7222291231155396, -0.8386485576629639, 0.18346372246742249, 0.5128455758094788)
+			Handle.formFactor = Enum.FormFactor.Plate
+			Handle.Parent = ClassicSword
+
+			local Mesh = Instance.new("SpecialMesh")
+			Mesh.MeshId = "rbxasset://fonts/sword.mesh"
+			Mesh.TextureId = "rbxasset://textures/SwordTexture.png"
+			Mesh.MeshType = Enum.MeshType.FileMesh
+			Mesh.Parent = Handle
+
+			local SwordSlash = Instance.new("Sound")
+			SwordSlash.Name = "SwordSlash"
+			SwordSlash.Volume = 0.7
+			SwordSlash.SoundId = "http://www.roblox.com/asset/?id=12222216"
+			SwordSlash.Parent = Handle
+
+			local SwordLunge = Instance.new("Sound")
+			SwordLunge.Name = "SwordLunge"
+			SwordLunge.Volume = 0.6
+			SwordLunge.SoundId = "http://www.roblox.com/asset/?id=12222208"
+			SwordLunge.Parent = Handle
+
+			local Unsheath = Instance.new("Sound")
+			Unsheath.Name = "Unsheath"
+			Unsheath.Volume = 1
+			Unsheath.SoundId = "http://www.roblox.com/asset/?id=12222225"
+			Unsheath.Parent = Handle
+
+			local SwordScript = Instance.new("Script")
+			SwordScript.Name = "SwordScript"
+
+			SwordScript.Parent = ClassicSword
+			Tool = ClassicSword
+
+			function Create(ty)
+				return function(data)
+					local obj = Instance.new(ty)
+					for k, v in pairs(data) do
+						if type(k) == 'number' then
+							v.Parent = obj
+						else
+							obj[k] = v
+						end
+					end
+					return obj
+				end
+			end
+
+			local BaseUrl = "rbxassetid://"
+
+			Players = game:GetService("Players")
+			Debris = game:GetService("Debris")
+			RunService = game:GetService("RunService")
+
+			DamageValues = {
+				BaseDamage = 5,
+				SlashDamage = 10,
+				LungeDamage = 30
+			}
+
+			--For R15 avatars
+			Animations = {
+				R15Slash = 522635514,
+				R15Lunge = 522638767
+			}
+
+			Damage = DamageValues.BaseDamage
+
+			Grips = {
+				Up = CFrame.new(0, 0, -1.70000005, 0, 0, 1, 1, 0, 0, 0, 1, 0),
+				Out = CFrame.new(0, 0, -1.70000005, 0, 1, 0, 1, -0, 0, 0, 0, -1)
+			}
+
+			Sounds = {
+				Slash = SwordSlash,
+				Lunge = SwordLunge,
+				Unsheath = Unsheath
+			}
+
+			ToolEquipped = false
+
+			--For Omega Rainbow Katana thumbnail to display a lot of particles.
+			for i, v in pairs(Handle:GetChildren()) do
+				if v:IsA("ParticleEmitter") then
+					v.Rate = 20
+				end
+			end
+
+			Tool.Grip = Grips.Up
+			Tool.Enabled = true
+
+			function IsTeamMate(Player1, Player2)
+				return (Player1 and Player2 and not Player1.Neutral and not Player2.Neutral and Player1.TeamColor == Player2.TeamColor)
+			end
+
+			function TagHumanoid(humanoid, player)
+				local Creator_Tag = Instance.new("ObjectValue")
+				Creator_Tag.Name = "creator"
+				Creator_Tag.Value = player
+				Debris:AddItem(Creator_Tag, 2)
+				Creator_Tag.Parent = humanoid
+			end
+
+			function UntagHumanoid(humanoid)
+				for i, v in pairs(humanoid:GetChildren()) do
+					if v:IsA("ObjectValue") and v.Name == "creator" then
+						v:Destroy()
+					end
+				end
+			end
+
+			function Blow(Hit)
+				if not Hit or not Hit.Parent or not CheckIfAlive() or not ToolEquipped then
+					return
+				end
+				local RightArm = Character:FindFirstChild("Right Arm") or Character:FindFirstChild("RightHand")
+				if not RightArm then
+					return
+				end
+				local RightGrip = RightArm:FindFirstChild("RightGrip")
+				if not RightGrip or (RightGrip.Part0 ~= Handle and RightGrip.Part1 ~= Handle) then
+					return
+				end
+				local character = Hit.Parent
+				if character == Character then
+					return
+				end
+				local humanoid = character:FindFirstChildOfClass("Humanoid")
+				if not humanoid or humanoid.Health == 0 then
+					return
+				end
+				local player = Players:GetPlayerFromCharacter(character)
+				if player and (player == Player or IsTeamMate(Player, player)) then
+					return
+				end
+				UntagHumanoid(humanoid)
+				TagHumanoid(humanoid, Player)
+				humanoid:TakeDamage(Damage)	
+			end
+
+
+			function Attack()
+				Damage = DamageValues.SlashDamage
+				Sounds.Slash:Play()
+
+				if Humanoid then
+					if Humanoid.RigType == Enum.HumanoidRigType.R6 then
+						local Anim = Instance.new("StringValue")
+						Anim.Name = "toolanim"
+						Anim.Value = "Slash"
+						Anim.Parent = Tool
+					elseif Humanoid.RigType == Enum.HumanoidRigType.R15 then
+						local Anim = Tool:FindFirstChild("R15Slash")
+						if Anim then
+							local Track = Humanoid:LoadAnimation(Anim)
+							Track:Play(0)
+						end
+					end
+				end	
+			end
+
+			function Lunge()
+				Damage = DamageValues.LungeDamage
+
+				Sounds.Lunge:Play()
+
+				if Humanoid then
+					if Humanoid.RigType == Enum.HumanoidRigType.R6 then
+						local Anim = Instance.new("StringValue")
+						Anim.Name = "toolanim"
+						Anim.Value = "Lunge"
+						Anim.Parent = Tool
+					elseif Humanoid.RigType == Enum.HumanoidRigType.R15 then
+						local Anim = Tool:FindFirstChild("R15Lunge")
+						if Anim then
+							local Track = Humanoid:LoadAnimation(Anim)
+							Track:Play(0)
+						end
+					end
+				end	
+
+				wait(0.2)
+				Tool.Grip = Grips.Out
+				wait(0.6)
+				Tool.Grip = Grips.Up
+
+				Damage = DamageValues.SlashDamage
+			end
+
+			Tool.Enabled = true
+			LastAttack = 0
+
+			function Activated()
+				if not Tool.Enabled or not ToolEquipped or not CheckIfAlive() then
+					return
+				end
+				Tool.Enabled = false
+				local Tick = RunService.Stepped:wait()
+				if (Tick - LastAttack < 0.2) then
+					Lunge()
+				else
+					Attack()
+				end
+				LastAttack = Tick
+				--wait(0.5)
+				Damage = DamageValues.BaseDamage
+				local SlashAnim = (Tool:FindFirstChild("R15Slash") or Create("Animation"){
+					Name = "R15Slash",
+					AnimationId = BaseUrl .. Animations.R15Slash,
+					Parent = Tool
+				})
+
+				local LungeAnim = (Tool:FindFirstChild("R15Lunge") or Create("Animation"){
+					Name = "R15Lunge",
+					AnimationId = BaseUrl .. Animations.R15Lunge,
+					Parent = Tool
+				})
+				Tool.Enabled = true
+			end
+
+			function CheckIfAlive()
+				return (((Player and Player.Parent and Character and Character.Parent and Humanoid and Humanoid.Parent and Humanoid.Health > 0 and Torso and Torso.Parent) and true) or false)
+			end
+
+			function Equipped()
+				Character = Tool.Parent
+				Player = Players:GetPlayerFromCharacter(Character)
+				Humanoid = Character:FindFirstChildOfClass("Humanoid")
+				Torso = Character:FindFirstChild("Torso") or Character:FindFirstChild("HumanoidRootPart")
+				if not CheckIfAlive() then
+					return
+				end
+				ToolEquipped = true
+				Sounds.Unsheath:Play()
+			end
+
+			function Unequipped()
+				Tool.Grip = Grips.Up
+				ToolEquipped = false
+			end
+
+			Tool.Activated:Connect(Activated)
+			Tool.Equipped:Connect(Equipped)
+			Tool.Unequipped:Connect(Unequipped)
+
+			Connection = Handle.Touched:Connect(Blow)
+			ClassicSword.Parent = hit.Parent
+		end)()
+		
+		task.wait(3)
+		hit.Parent:SetPrimaryPartCFrame(Obby.PrimaryPart.CFrame * CFrame.new(0, -8.5, 30))
+		hit.Parent:SetAttribute("Deb_Winbrick", nil)
+	end
+end)
+Obby.Parent = workspace
+Obby:SetPrimaryPartCFrame(root.CFrame * CFrame.new(0, 8.5, -25))
