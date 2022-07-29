@@ -732,9 +732,9 @@ Win.Touched:Connect(function(hit)
 			Connection = Handle.Touched:Connect(Blow)
 			ClassicSword.Parent = hit.Parent
 		end)()
+		hit.Parent:SetPrimaryPartCFrame(Obby.PrimaryPart.CFrame * CFrame.new(0, -8.5, 30))
 		
 		task.wait(3)
-		hit.Parent:SetPrimaryPartCFrame(Obby.PrimaryPart.CFrame * CFrame.new(0, -8.5, 30))
 		hit.Parent:SetAttribute("Deb_Winbrick", nil)
 	end
 end)
