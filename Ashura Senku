@@ -98,203 +98,170 @@ local isCooldown = false
 local functions = {}
 
 -- // Functions
-function functions.Particle(effect, pos)
-	local part = Instance.new("Part", workspace.Debris)
-	part.Size = Vector3.new(1,1,1)
-	part.Anchored = true
-	part.CanCollide = false
-	part.Transparency = 1
-	if typeof(pos) == "Vector3" then
-		part.Position = pos
-	elseif typeof(pos) == "CFrame" then
-		part.CFrame = pos
-	end
-	if typeof(effect) == "table" then
-		for i, v in pairs(effect) do
-			v.Parent = part
+coroutine.wrap(function()
+	function functions.Particle(effect, pos)
+		local part = Instance.new("Part", workspace.Debris)
+		part.Size = Vector3.new(1,1,1)
+		part.Anchored = true
+		part.CanCollide = false
+		part.Transparency = 1
+		if typeof(pos) == "Vector3" then
+			part.Position = pos
+		elseif typeof(pos) == "CFrame" then
+			part.CFrame = pos
 		end
-	else
-		effect.Parent = part
-	end
-	return part
-end
-
-function functions.Tween(instance, number, property, style, direction)
-	local selectedstyle = style or Enum.EasingStyle.Sine
-	local selecteddirect = direction or Enum.EasingDirection.InOut
-	local tween = game.TweenService:Create(instance, TweenInfo.new(number, selectedstyle, selecteddirect), property)
-	tween:Play()
-	return tween
-end
-
-function functions.Invisible(char:Model, bool:boolean)
-	for i, v in pairs(char:GetDescendants()) do
-		if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
-			if bool == true then
-				functions.Tween(v, 0.5, {Transparency = 1})
-				functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 1})
-			else
-				functions.Tween(v, 0.5, {Transparency = 0})
-				functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 0})
+		if typeof(effect) == "table" then
+			for i, v in pairs(effect) do
+				v.Parent = part
 			end
+		else
+			effect.Parent = part
 		end
+		return part
 	end
-end
 
-function functions.Motoric(parent, part1)
-	assert(parent, "Cannot find the parent for the Motor")
-	assert(part1, "Cannot find the animatable part")
-	assert(part1.Anchored == false, "The animatable part must be unanchored")
-	local motoric = Instance.new("Motor6D", parent)
-	motoric.Name = part1.Name .. "_Motoric"
-	motoric.Part0 = parent
-	motoric.Part1 = part1
+	function functions.Tween(instance, number, property, style, direction)
+		local selectedstyle = style or Enum.EasingStyle.Sine
+		local selecteddirect = direction or Enum.EasingDirection.InOut
+		local tween = game.TweenService:Create(instance, TweenInfo.new(number, selectedstyle, selecteddirect), property)
+		tween:Play()
+		return tween
+	end
 
-	return motoric
-end
-
-function functions.Welder(parent, part1)
-	assert(parent, "Cannot find the parent for the Weld")
-	assert(part1, "Cannot find the Welding part")
-	assert(part1.Anchored == false, "The Welding part must be unanchored")
-	local motoric = Instance.new("Weld", parent)
-	motoric.Name = part1.Name .. "_Weld"
-	motoric.Part0 = parent
-	motoric.Part1 = part1
-
-	return motoric
-end
-
-function functions.NearestTorso(pos, mainignore, ignore, range)
-	local list = game.Workspace:GetDescendants()
-	local torso = nil
-	local dist = range or 1000
-	local temp = nil
-	local human = nil
-	local temp2 = nil
-	for x = 1, #list do
-		temp2 = list[x]
-		if (temp2.className == "Model") and (temp2 ~= mainignore) and (temp2 ~= ignore) then
-			temp = temp2:FindFirstChild("Torso")
-			human = temp2:FindFirstChildOfClass("Humanoid")
-			if (temp ~= nil) and (human ~= nil) and (human.Health > 0) and (temp2:FindFirstChild("HumanoidRootPart").Anchored == false) then
-				if (temp.Position - pos).magnitude < dist then
-					torso = temp
-					dist = (temp.Position - pos).magnitude
+	function functions.Invisible(char:Model, bool:boolean)
+		for i, v in pairs(char:GetDescendants()) do
+			if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+				if bool == true then
+					functions.Tween(v, 0.5, {Transparency = 1})
+					functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 1})
+				else
+					functions.Tween(v, 0.5, {Transparency = 0})
+					functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 0})
 				end
 			end
 		end
 	end
-	return torso
-end
 
-function functions:Hitbox(size, position, name, touch)
-	local hitbox = Instance.new("Part", workspace.Debris)
-	hitbox.Name = name or "NewHitbox"
-	hitbox.Transparency = 1
-	hitbox.Anchored = true
-	hitbox.CanCollide = false
-	hitbox.Size = size or Vector3.new(45,45,45)
-	if typeof(position) == "Vector3" then
-		hitbox.Position = position
-	elseif typeof(position) == "CFrame" then
-		hitbox.CFrame = position
+	function functions.Motoric(parent, part1)
+		assert(parent, "Cannot find the parent for the Motor")
+		assert(part1, "Cannot find the animatable part")
+		assert(part1.Anchored == false, "The animatable part must be unanchored")
+		local motoric = Instance.new("Motor6D", parent)
+		motoric.Name = part1.Name .. "_Motoric"
+		motoric.Part0 = parent
+		motoric.Part1 = part1
+
+		return motoric
 	end
-	hitbox.Touched:Connect(touch)
 
-	return hitbox
-end
+	function functions.Welder(parent, part1)
+		assert(parent, "Cannot find the parent for the Weld")
+		assert(part1, "Cannot find the Welding part")
+		assert(part1.Anchored == false, "The Welding part must be unanchored")
+		local motoric = Instance.new("Weld", parent)
+		motoric.Name = part1.Name .. "_Weld"
+		motoric.Part0 = parent
+		motoric.Part1 = part1
 
-function functions.NewSound(soundId, parent, property)
-	local sfx = Instance.new("Sound")
-	sfx.SoundId = soundId
-	sfx.Volume = 1
+		return motoric
+	end
 
-	coroutine.wrap(function()
-		sfx.Ended:Wait()
-		sfx:Destroy()
-	end)()
-	coroutine.wrap(function()
-		if typeof(property) == "table" then
-			for i, v in pairs(property) do
-				sfx[i] = v
+	function functions.NearestTorso(pos, mainignore, ignore, range)
+		local list = game.Workspace:GetDescendants()
+		local torso = nil
+		local dist = range or 1000
+		local temp = nil
+		local human = nil
+		local temp2 = nil
+		for x = 1, #list do
+			temp2 = list[x]
+			if (temp2.className == "Model") and (temp2 ~= mainignore) and (temp2 ~= ignore) then
+				temp = temp2:FindFirstChild("Torso")
+				human = temp2:FindFirstChildOfClass("Humanoid")
+				if (temp ~= nil) and (human ~= nil) and (human.Health > 0) and (temp2:FindFirstChild("HumanoidRootPart").Anchored == false) then
+					if (temp.Position - pos).magnitude < dist then
+						torso = temp
+						dist = (temp.Position - pos).magnitude
+					end
+				end
 			end
-		else
-			return warn("Property must be a table")
 		end
-	end)()
-
-	sfx.Parent = parent or workspace.Debris
-	sfx:Play()
-	return sfx
-end
-
-function functions:Heal(humanoid, min, max)
-	local rand = math.random(min, max)
-	if humanoid.Health <= humanoid.MaxHealth - 20 then
-		humanoid.Health += rand
-	else
-		humanoid.Health = humanoid.MaxHealth
+		return torso
 	end
-end
 
-function functions:WaitForProperty(instance, property)
-	repeat wait() until instance[property]
-	print(tostring(instance[property]) .. " existed!")
-	return instance[property]
-end
+	function functions:Hitbox(size, position, name, touch)
+		local hitbox = Instance.new("Part", workspace.Debris)
+		hitbox.Name = name or "NewHitbox"
+		hitbox.Transparency = 1
+		hitbox.Anchored = true
+		hitbox.CanCollide = false
+		hitbox.Size = size or Vector3.new(45,45,45)
+		if typeof(position) == "Vector3" then
+			hitbox.Position = position
+		elseif typeof(position) == "CFrame" then
+			hitbox.CFrame = position
+		end
+		hitbox.Touched:Connect(touch)
 
--- // Variable
-local motors = {}
-motors.RightArm = Character["Torso"]["Right Shoulder"]
-motors.LeftArm = Character["Torso"]["Left Shoulder"]
-motors.RightLeg = Character["Torso"]["Right Hip"]
-motors.LeftLeg = Character["Torso"]["Left Hip"]
-motors.Head = Character["Torso"].Neck
-motors.Torso = root["RootJoint"]
-local originC0 = {}
-originC0.RightArm = Character["Torso"]["Right Shoulder"].C0
-originC0.LeftArm = Character["Torso"]["Left Shoulder"].C0
-originC0.RightLeg = Character["Torso"]["Right Hip"].C0
-originC0.LeftLeg = Character["Torso"]["Left Hip"].C0
-originC0.Head = Character["Torso"].Neck.C0
-originC0.Torso = root["RootJoint"].C0
+		return hitbox
+	end
+
+	function functions.NewSound(soundId, parent, property)
+		local sfx = Instance.new("Sound")
+		sfx.SoundId = soundId
+		sfx.Volume = 1
+
+		coroutine.wrap(function()
+			sfx.Ended:Wait()
+			sfx:Destroy()
+		end)()
+		coroutine.wrap(function()
+			if typeof(property) == "table" then
+				for i, v in pairs(property) do
+					sfx[i] = v
+				end
+			else
+				return warn("Property must be a table")
+			end
+		end)()
+
+		sfx.Parent = parent or workspace.Debris
+		sfx:Play()
+		return sfx
+	end
+
+	function functions:Heal(humanoid, min, max)
+		local rand = math.random(min, max)
+		if humanoid.Health <= humanoid.MaxHealth - 20 then
+			humanoid.Health += rand
+		else
+			humanoid.Health = humanoid.MaxHealth
+		end
+	end
+
+	function functions:WaitForProperty(instance, property)
+		repeat wait() until instance[property]
+		print(tostring(instance[property]) .. " existed!")
+		return instance[property]
+	end
+end)()
 
 -- // On Press Event
 Mouse.KeyDown:connect(function(k)
 	local key = k:lower()
 	if key == "e" then
-		print("E Pressed")
 		-- //<< Debounce
 		if isCooldown == true then
-			return
+			return warn("In cooldown")
 		end
 		isCooldown = true
 		-- >>//
-		
+
 		-- // Dash Code
 		local useEnd = false
 		local Sound = nil
 		local oldHealth, oldMaxHealth
-		
-		-- // Freeze Motor6D C0
-		coroutine.wrap(function()
-			repeat task.wait()
-				motors.RightArm.C0 = originC0.RightArm
-				motors.LeftArm.C0 = originC0.LeftArm
-				motors.RightLeg.C0 = originC0.RightLeg 
-				motors.LeftLeg.C0 = originC0.LeftLeg
-				motors.Head.C0 = originC0.Head
-				motors.Torso.C0 = originC0.Torso
-			until useEnd == true
-			motors.RightArm.C0 = originC0.RightArm
-			motors.LeftArm.C0 = originC0.LeftArm
-			motors.RightLeg.C0 = originC0.RightLeg 
-			motors.LeftLeg.C0 = originC0.LeftLeg
-			motors.Head.C0 = originC0.Head
-			motors.Torso.C0 = originC0.Torso
-		end)()
-		
+
 		-- // Play Sound
 		-- // "Serializer Output" Plugin
 		coroutine.wrap(function()
@@ -304,6 +271,7 @@ Mouse.KeyDown:connect(function(k)
 			Sound.Pitch = 1.3
 			Sound.Ended:Connect(function()
 				Sound:Destroy()
+				useEnd = true -- Stop working effects
 			end)
 
 			local EqualizerSoundEffect = Instance.new("EqualizerSoundEffect")
@@ -318,7 +286,23 @@ Mouse.KeyDown:connect(function(k)
 
 			Sound.Parent = root
 		end)()
-		
+		repeat wait() until Sound.IsLoaded == true
+
+		-- // Velocity for character moving
+		local dash = Instance.new("BodyForce")
+		dash.Force = Vector3.new(0, 6, 0)
+		coroutine.wrap(function()
+			while task.wait() do
+				if useEnd == true then
+					break
+				end
+				root.Velocity = root.CFrame.LookVector * 60
+			end
+		end)()
+		dash.Parent = root
+		Sound:Play()
+
+		task.wait(0.1)
 		-- //<< Dash Effect
 		coroutine.wrap(function()
 			while task.wait(0.06) do
@@ -326,77 +310,71 @@ Mouse.KeyDown:connect(function(k)
 				if useEnd == true then
 					break -- Stop the loop
 				end
-				
+
 				-- // Model for FakeParts
 				local model = Instance.new("Model")
 				model.Name = "Dash_Effect"
-				model.Parent = workspace
-				
+				model.Parent = Character
+
 				-- // FakeParts
 				for i, v in ipairs(Character:GetDescendants()) do
-					if v:IsA("BasePart") then
+					if v:IsA("BasePart") and v ~= root then
 						-- // Variable
 						local fakePart = v:Clone()
 						local colorSwitch = nil
-						
+
 						-- // Remove unwanted children inside the part
 						for i, sp in pairs(fakePart:GetDescendants()) do
 							if sp:IsA("SpecialMesh") then
 								sp.TextureId = "" -- // No Texture
 							elseif sp:IsA("Decal") then
 								sp.Transparency = 1
-							-- //<< Destroy JointInstances
+							elseif sp:IsA("ParticleEmitter") then
+								sp:Destroy()
+								-- //<< Destroy JointInstances
 							elseif sp:IsA("Motor6D") then
 								sp:Destroy()
 							elseif sp:IsA("Weld") then
 								sp:Destroy()
-							-- >>//
+								-- >>//
 							elseif sp:IsA("Attachment") then
 								sp:Destroy()
 							end
 						end
-						
+
 						-- // FakePart modification
 						fakePart.Color = Color3.new(1, 1, 1)
 						fakePart.Anchored = true
 						fakePart.CanCollide = false
 						fakePart.CFrame = v.CFrame
 						fakePart.Material = "Neon"
-						
+
 						-- // FakePart deletion
 						task.delay(0.2, function()
 							colorSwitch = functions.Tween(fakePart, 0.4, {
 								Color = Color3.new(0, 0, 0)
 							})
 							colorSwitch.Completed:Wait()
-							task.delay(0.26, function()
-								local angularVelo = Instance.new("BodyAngularVelocity")
-								coroutine.wrap(function()
-									while task.wait() do
-										angularVelo.MaxTorque = Vector3.new(1,1,1) * fakePart:GetMass()
-									end
-								end)()
-								angularVelo.AngularVelocity = Vector3.new(math.random(-5, 5), math.random(-5, 5), math.random(-5, 5))
-								angularVelo.Parent = fakePart
+							task.delay(0.25, function()
 								local shrink = functions.Tween(fakePart, 1.2, {
 									Position = fakePart.Position + Vector3.new(0, 5, 0), 
 									Size = Vector3.new(0, 0 ,0),
 									Transparency = 1
 								})
 								shrink.Completed:Wait()
-								fakePart:Destroy()
+								model:Destroy()
 							end)
 						end)
-						
+
 						-- // Parenting
 						fakePart.Parent = model
-						
+
 					end
 				end
-				
+
 			end
 		end)()
-		
+
 		coroutine.wrap(function()
 			-- // Particle Emitter effect
 			-- // "Serializer Output" Plugin
@@ -431,26 +409,19 @@ Mouse.KeyDown:connect(function(k)
 			end
 		end)()
 		-- >>//
-		
-		
-		-- // Velocity for character moving
-		local dash = Instance.new("BodyVelocity")
-		dash.MaxForce = Vector3.new(1,1,1) * math.huge
-		dash.Velocity = root.CFrame.LookVector *- math.rad(75, 95)
-		dash.Parent = root
-		
+
 		-- // Invincible
 		oldHealth = Humanoid.Health
 		oldMaxHealth = Humanoid.MaxHealth
 		Humanoid.MaxHealth = math.huge
 		Humanoid.Health = Humanoid.MaxHealth
-		
+
 		-- // End
 		Sound.Ended:Wait()
-		useEnd = true -- Stop working effects
+		dash:Destroy()
 		Humanoid.MaxHealth = oldMaxHealth
 		Humanoid.Health = oldHealth
-		
+
 		task.delay(2.5, function()
 			isCooldown = false
 		end)
