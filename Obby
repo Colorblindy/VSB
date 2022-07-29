@@ -90,6 +90,157 @@ Character = Player.Character
 Humanoid = Character.Humanoid
 root = Humanoid.RootPart
 
+local functions = {}
+
+-- // Functions
+coroutine.wrap(function()
+	function functions.Particle(effect, pos)
+		local part = Instance.new("Part", workspace.Debris)
+		part.Size = Vector3.new(1,1,1)
+		part.Anchored = true
+		part.CanCollide = false
+		part.Transparency = 1
+		if typeof(pos) == "Vector3" then
+			part.Position = pos
+		elseif typeof(pos) == "CFrame" then
+			part.CFrame = pos
+		end
+		if typeof(effect) == "table" then
+			for i, v in pairs(effect) do
+				v.Parent = part
+			end
+		else
+			effect.Parent = part
+		end
+		return part
+	end
+
+	function functions.Tween(instance, number, property, style, direction)
+		local selectedstyle = style or Enum.EasingStyle.Sine
+		local selecteddirect = direction or Enum.EasingDirection.InOut
+		local tween = game.TweenService:Create(instance, TweenInfo.new(number, selectedstyle, selecteddirect), property)
+		tween:Play()
+		return tween
+	end
+
+	function functions.Invisible(char:Model, bool:boolean)
+		for i, v in pairs(char:GetDescendants()) do
+			if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+				if bool == true then
+					functions.Tween(v, 0.5, {Transparency = 1})
+					functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 1})
+				else
+					functions.Tween(v, 0.5, {Transparency = 0})
+					functions.Tween(char.Head:FindFirstChildOfClass("Decal"), 0.5, {Transparency = 0})
+				end
+			end
+		end
+	end
+
+	function functions.Motoric(parent, part1)
+		assert(parent, "Cannot find the parent for the Motor")
+		assert(part1, "Cannot find the animatable part")
+		assert(part1.Anchored == false, "The animatable part must be unanchored")
+		local motoric = Instance.new("Motor6D", parent)
+		motoric.Name = part1.Name .. "_Motoric"
+		motoric.Part0 = parent
+		motoric.Part1 = part1
+
+		return motoric
+	end
+
+	function functions.Welder(parent, part1)
+		assert(parent, "Cannot find the parent for the Weld")
+		assert(part1, "Cannot find the Welding part")
+		assert(part1.Anchored == false, "The Welding part must be unanchored")
+		local motoric = Instance.new("Weld", parent)
+		motoric.Name = part1.Name .. "_Weld"
+		motoric.Part0 = parent
+		motoric.Part1 = part1
+
+		return motoric
+	end
+
+	function functions.NearestTorso(pos, mainignore, ignore, range)
+		local list = game.Workspace:GetDescendants()
+		local torso = nil
+		local dist = range or 1000
+		local temp = nil
+		local human = nil
+		local temp2 = nil
+		for x = 1, #list do
+			temp2 = list[x]
+			if (temp2.className == "Model") and (temp2 ~= mainignore) and (temp2 ~= ignore) then
+				temp = temp2:FindFirstChild("Torso")
+				human = temp2:FindFirstChildOfClass("Humanoid")
+				if (temp ~= nil) and (human ~= nil) and (human.Health > 0) and (temp2:FindFirstChild("HumanoidRootPart").Anchored == false) then
+					if (temp.Position - pos).magnitude < dist then
+						torso = temp
+						dist = (temp.Position - pos).magnitude
+					end
+				end
+			end
+		end
+		return torso
+	end
+
+	function functions:Hitbox(size, position, name, touch)
+		local hitbox = Instance.new("Part", workspace.Debris)
+		hitbox.Name = name or "NewHitbox"
+		hitbox.Transparency = 1
+		hitbox.Anchored = true
+		hitbox.CanCollide = false
+		hitbox.Size = size or Vector3.new(45,45,45)
+		if typeof(position) == "Vector3" then
+			hitbox.Position = position
+		elseif typeof(position) == "CFrame" then
+			hitbox.CFrame = position
+		end
+		hitbox.Touched:Connect(touch)
+
+		return hitbox
+	end
+
+	function functions.NewSound(soundId, parent, property)
+		local sfx = Instance.new("Sound")
+		sfx.SoundId = soundId
+		sfx.Volume = 1
+
+		coroutine.wrap(function()
+			sfx.Ended:Wait()
+			sfx:Destroy()
+		end)()
+		coroutine.wrap(function()
+			if typeof(property) == "table" then
+				for i, v in pairs(property) do
+					sfx[i] = v
+				end
+			else
+				return warn("Property must be a table")
+			end
+		end)()
+
+		sfx.Parent = parent or workspace.Debris
+		sfx:Play()
+		return sfx
+	end
+
+	function functions:Heal(humanoid, min, max)
+		local rand = math.random(min, max)
+		if humanoid.Health <= humanoid.MaxHealth - 20 then
+			humanoid.Health += rand
+		else
+			humanoid.Health = humanoid.MaxHealth
+		end
+	end
+
+	function functions:WaitForProperty(instance, property)
+		repeat wait() until instance[property]
+		print(tostring(instance[property]) .. " existed!")
+		return instance[property]
+	end
+end)()
+
 local Obby = Instance.new("Model")
 Obby.Name = "Obby"
 Obby.WorldPivot = CFrame.new(-1.3525539636611938, 11.5, -27.813430786132812)
@@ -208,9 +359,6 @@ Win.Parent = Obby
 
 Obby.PrimaryPart = Middle
 Kill.Touched:Connect(function(hit)
-	if hit.Parent == Character then
-		return
-	end
 	if hit.Parent:FindFirstChildOfClass("Humanoid") then
 		if hit.Parent:GetAttribute("Deb_Killbrick") == true then
 			return
@@ -224,15 +372,12 @@ Kill.Touched:Connect(function(hit)
 	end
 end)
 Win.Touched:Connect(function(hit)
-	if hit.Parent == Character then
-		return
-	end
 	if hit.Parent:FindFirstChildOfClass("Humanoid") then
 		if hit.Parent:GetAttribute("Deb_Winbrick") == true then
 			return
 		end
 		hit.Parent:SetAttribute("Deb_Winbrick", true)
-
+		
 		coroutine.wrap(function()
 			local ParticleEmitter = Instance.new("ParticleEmitter")
 			ParticleEmitter.Lifetime = NumberRange.new(1, 2)
@@ -304,6 +449,7 @@ Win.Touched:Connect(function(hit)
 			ParticleEmitter4.Texture = "http://www.roblox.com/asset/?id=241685484"
 			ParticleEmitter4.Parent = Win
 			
+			functions.NewSound("rbxassetid://8204799453", hit.Parent.PrimaryPart, {Volume = 5}).Ended:Wait()
 			task.delay(2, function()
 				ParticleEmitter.Enabled = false
 				ParticleEmitter1.Enabled = false
