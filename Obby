@@ -365,7 +365,7 @@ Kill.Touched:Connect(function(hit)
 		end
 		hit.Parent:SetAttribute("Deb_Killbrick", true)
 		
-		hit.Parent:FindFirstChildOfClass("Humanoid"):TakeDamage(10)
+		hit.Parent:FindFirstChildOfClass("Humanoid"):TakeDamage(30)
 		
 		task.wait(0.5)
 		hit.Parent:SetAttribute("Deb_Killbrick", nil)
